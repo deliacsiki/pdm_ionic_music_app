@@ -9,6 +9,7 @@
     - artist - ***string***
     - releaseDate - ***date***
     - downloaded - ***boolean***
+    - length - ***numeric***
 
 *Lab 1:*
 - create ionic project
