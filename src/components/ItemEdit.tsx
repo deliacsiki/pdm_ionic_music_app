@@ -17,7 +17,6 @@ import {
     IonLabel,
     IonItem
 } from '@ionic/react';
-import { download } from "ionicons/icons";
 
 interface ItemEditProps extends RouteComponentProps< {
     id?: string
