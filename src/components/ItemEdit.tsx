@@ -1,0 +1,96 @@
+import {RouteComponentProps} from "react-router";
+import {Song} from "./Song";
+import React, {useContext, useEffect, useState} from "react";
+import {ItemContext} from "./api/ItemProvider";
+import {
+    IonButton,
+    IonButtons,
+    IonContent,
+    IonHeader,
+    IonInput,
+    IonLoading,
+    IonRadio,
+    IonRadioGroup,
+    IonPage,
+    IonTitle,
+    IonToolbar,
+    IonLabel,
+    IonItem
+} from '@ionic/react';
+import { download } from "ionicons/icons";
+
+interface ItemEditProps extends RouteComponentProps< {
+    id?: string
+}>{}
+
+
+const ItemEdit: React.FC<ItemEditProps> = ({history, match}) => {
+    const {items, saving, savingError, saveItem} = useContext(ItemContext)
+    const [name, setName] = useState('');
+    const [artist, setArtist] = useState('');
+    const [releaseDate, setRealeaseDate] = useState('');
+    const [downloaded, setDownloaded] = useState('');
+    const [item, setItems] = useState<Song>();
+
+    useEffect(() => {
+       const routeId = match.params.id || '';
+       const item = items?.find(it => it.id == routeId);
+       setItems(item);
+       if (item){
+        setName(item.name);
+        setArtist(item.artist);
+        setRealeaseDate(item.releaseDate);
+        setDownloaded(item.downloaded);
+       }
+    }, [match.params.id, items]);
+
+    const handleSave = () => {
+        const editedItem = item ? { ...item, name, artist, releaseDate, downloaded } : { name, artist, releaseDate, downloaded}
+        saveItem && saveItem(editedItem).then(() => history.goBack());
+    }
+
+    return (
+        <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonTitle>Edit</IonTitle>
+                    <IonButtons slot="end">
+                        <IonButton onClick={handleSave}>
+                            Save
+                        </IonButton>
+                    </IonButtons>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent>
+                <IonLabel>Song name</IonLabel>
+                <IonInput value={name} onIonChange={e => setName(e.detail.value || '')}/>
+                <IonLabel>Song artist</IonLabel>
+                <IonInput value={artist} onIonChange={e => setArtist(e.detail.value || '')}/>
+                <IonLabel>Release Date</IonLabel>
+                <IonInput value={releaseDate} onIonChange={e => setRealeaseDate(e.detail.value || '')}/>
+                <IonLabel>Downloaded</IonLabel>
+                <IonRadioGroup value={downloaded} onIonChange={e => setDownloaded(e.detail.value)}>
+                    <IonItem>
+                        <IonLabel>
+                            Yes
+                        </IonLabel>
+                        <IonRadio slot="start" value={true}/>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel>
+                            No
+                        </IonLabel>
+                        <IonRadio slot="start" value={false}/>
+                    </IonItem>
+                </IonRadioGroup>
+                {/* <IonInput value={downloaded} onIonChange={e => setDownloaded(e.detail.value || '')}/> */}
+                <IonLoading isOpen={saving} />
+                {savingError && (
+                    <div>{savingError.message || 'Failed to save item'}</div>
+                )}
+            </IonContent>
+        </IonPage>
+    );
+};
+
+export default ItemEdit
