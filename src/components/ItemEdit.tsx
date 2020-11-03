@@ -33,7 +33,7 @@ const ItemEdit: React.FC<ItemEditProps> = ({history, match}) => {
 
     useEffect(() => {
        const routeId = match.params.id || '';
-       const item = items?.find(it => it.id == routeId);
+       const item = items?.find(it => it.id === routeId);
        setItems(item);
        if (item){
         setName(item.name);
