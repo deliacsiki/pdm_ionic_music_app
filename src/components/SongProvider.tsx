@@ -1,4 +1,4 @@
-import { Song } from "../Song";
+import { Song } from "./Song";
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useReducer } from "react";
 import { createItem, getItems, newWebSocket, updateItem } from "./SongAPI";
@@ -41,8 +41,10 @@ const reducer: (state: ItemState, action: ActionProps) => ItemState = (
 ) => {
   switch (type) {
     case FETCH_ITEMS_STARTED:
+      console.log('Start fetching entities');
       return { ...state, fetching: true, fetchingError: null };
     case FETCH_ITEMS_SUCCEEDED:
+      console.log('Succesfully fetched entities');
       return { ...state, items: payload.items, fetching: false };
     case FETCH_ITEMS_FAILED:
       return { ...state, fetchingError: payload.error, fetching: false };
@@ -57,6 +59,7 @@ const reducer: (state: ItemState, action: ActionProps) => ItemState = (
       } else {
         items[index] = item;
       }
+      console.log('Succesfully saved entity');
       return { ...state, items, saving: false };
     case SAVE_ITEM_FAILED:
       return { ...state, savingError: payload.error, saving: false };
@@ -123,6 +126,7 @@ export const ItemProvider: React.FC<ItemProviderProps> = ({ children }) => {
 
       const {
         event,
+        // eslint-disable-next-line
         payload: { item },
       } = message;
       if (event === "created" || event === "updated") {

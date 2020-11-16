@@ -1,7 +1,7 @@
 import {RouteComponentProps} from "react-router";
 import {Song} from "./Song";
 import React, {useContext, useEffect, useState} from "react";
-import {ItemContext} from "./api/ItemProvider";
+import {ItemContext} from "./SongProvider";
 import {
     IonButton,
     IonButtons,
@@ -10,6 +10,7 @@ import {
     IonInput,
     IonLoading,
     IonRadio,
+    IonDatetime,
     IonRadioGroup,
     IonPage,
     IonTitle,
@@ -52,7 +53,7 @@ const ItemEdit: React.FC<ItemEditProps> = ({history, match}) => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Edit</IonTitle>
+                    <IonTitle>Make modifications on one song</IonTitle>
                     <IonButtons slot="end">
                         <IonButton onClick={handleSave}>
                             Save
@@ -66,7 +67,7 @@ const ItemEdit: React.FC<ItemEditProps> = ({history, match}) => {
                 <IonLabel>Song artist</IonLabel>
                 <IonInput value={artist} onIonChange={e => setArtist(e.detail.value || '')}/>
                 <IonLabel>Release Date</IonLabel>
-                <IonInput value={releaseDate} onIonChange={e => setRealeaseDate(e.detail.value || '')}/>
+                <IonDatetime displayFormat="DD - MM - YYYY" placeholder="Select Release Date" value={releaseDate} onIonChange={e => setRealeaseDate(e.detail.value!)}></IonDatetime>
                 <IonLabel>Downloaded</IonLabel>
                 <IonRadioGroup value={downloaded} onIonChange={e => setDownloaded(e.detail.value)}>
                     <IonItem>

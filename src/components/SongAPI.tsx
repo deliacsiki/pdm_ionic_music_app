@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {Song} from "../Song";
+import {Song} from "./Song";
 
 const baseUrl = 'localhost:3001'
 const itemUrl = `http://${baseUrl}/song`

@@ -11,8 +11,8 @@ import {
   IonFabButton,
   IonIcon,
 } from "@ionic/react";
-import Item from "./Item";
-import { ItemContext } from "./api/ItemProvider";
+import Item from "./SongCard";
+import { ItemContext } from "./SongProvider";
 import { add } from "ionicons/icons";
 import Spinner from './UI/Spinner/Spinner';
 
@@ -39,7 +39,7 @@ const ItemList: React.FC<RouteComponentProps> = ({ history }) => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>A list of songs</IonTitle>
+          <IonTitle>Your songs</IonTitle>
         </IonToolbar>
       </IonHeader>
 
