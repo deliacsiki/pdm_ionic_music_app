@@ -1,7 +1,7 @@
 export interface Song {
-    id?: string;
+    _id?: string;
     name: string;
     artist: string;
-    releaseDate: string;
-    downloaded: string;
+    releaseDate: Date;
+    downloaded: boolean;
 }

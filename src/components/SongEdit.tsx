@@ -28,13 +28,13 @@ const ItemEdit: React.FC<ItemEditProps> = ({history, match}) => {
     const {items, saving, savingError, saveItem} = useContext(ItemContext)
     const [name, setName] = useState('');
     const [artist, setArtist] = useState('');
-    const [releaseDate, setRealeaseDate] = useState('');
-    const [downloaded, setDownloaded] = useState('');
+    const [releaseDate, setRealeaseDate] = useState(new Date());
+    const [downloaded, setDownloaded] = useState(false);
     const [item, setItems] = useState<Song>();
 
     useEffect(() => {
        const routeId = match.params.id || '';
-       const item = items?.find(it => it.id === routeId);
+       const item = items?.find(it => it._id === routeId);
        setItems(item);
        if (item){
         setName(item.name);
@@ -55,7 +55,7 @@ const ItemEdit: React.FC<ItemEditProps> = ({history, match}) => {
                 <IonToolbar>
                     <IonTitle>Make modifications on one song</IonTitle>
                     <IonButtons slot="end">
-                        <IonButton onClick={handleSave}>
+                        <IonButton fill="outline" color="primary" onClick={handleSave}>
                             Save
                         </IonButton>
                     </IonButtons>
@@ -67,7 +67,7 @@ const ItemEdit: React.FC<ItemEditProps> = ({history, match}) => {
                 <IonLabel>Song artist</IonLabel>
                 <IonInput value={artist} onIonChange={e => setArtist(e.detail.value || '')}/>
                 <IonLabel>Release Date</IonLabel>
-                <IonDatetime displayFormat="DD - MM - YYYY" placeholder="Select Release Date" value={releaseDate} onIonChange={e => setRealeaseDate(e.detail.value!)}></IonDatetime>
+                <IonDatetime displayFormat="DD - MM - YYYY" placeholder="Select Release Date" value={releaseDate.toString()} onIonChange={e => setRealeaseDate(new Date(Date.parse(e.detail.value!)))}></IonDatetime>
                 <IonLabel>Downloaded</IonLabel>
                 <IonRadioGroup value={downloaded} onIonChange={e => setDownloaded(e.detail.value)}>
                     <IonItem>
@@ -83,10 +83,9 @@ const ItemEdit: React.FC<ItemEditProps> = ({history, match}) => {
                         <IonRadio slot="start" value={false}/>
                     </IonItem>
                 </IonRadioGroup>
-                {/* <IonInput value={downloaded} onIonChange={e => setDownloaded(e.detail.value || '')}/> */}
                 <IonLoading isOpen={saving} />
                 {savingError && (
-                    <div>{savingError.message || 'Failed to save item'}</div>
+                    <div>{savingError.message || 'Failed to save song'}</div>
                 )}
             </IonContent>
         </IonPage>

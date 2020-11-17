@@ -8,19 +8,26 @@ import {
   IonCardTitle,
 } from "@ionic/react";
 
-interface FlightExt extends Song {
+interface SongExt extends Song {
   onEdit: (id?: string) => void;
 }
 
-const Item: React.FC<FlightExt> = ({
-  id,
+const Item: React.FC<SongExt> = ({
+  _id,
   name,
   artist,
   downloaded,
   onEdit,
 }) => {
   return (
-    <IonCard onClick={() => onEdit(id)}>
+    <IonCard
+      onClick={() => onEdit(_id)}
+      color="white"
+      style={{
+        "marginBottom": "1.2rem",
+        "border": "2px solid #ff4961",
+      }}
+    >
       <IonCardHeader>
         <IonCardTitle>{`${name}`}</IonCardTitle>
         <IonCardSubtitle>{`By ${artist}`}</IonCardSubtitle>

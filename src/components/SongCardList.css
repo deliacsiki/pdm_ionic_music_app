@@ -1,0 +1,11 @@
+#song-cardlist-toolbar {
+    text-align: left;
+    height: 60px;
+    position: relative;
+}
+
+#song-cardlist-logoutBtn{
+    position: absolute;
+    right: 10px;
+    top: 8px;
+}

@@ -1,0 +1,26 @@
+.login-page ion-toolbar ion-title{
+    text-align: center;
+}
+
+.login-page ion-content{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-page ion-content ion-input{
+    width: 40%;
+    border-radius: 20px;
+    border: 1px solid #428cff;
+} 
+
+.login-page ion-content .login-username{
+    margin: 1rem auto;
+}
+
+.login-page ion-content .login-password{
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
