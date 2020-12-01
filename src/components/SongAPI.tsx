@@ -5,7 +5,7 @@ import { Song } from './Song';
 const itemUrl = `http://${baseUrl}/api/song`;
 
 export const getItems: (token: string, page: number) => Promise<Song[]> = (token, page) => {
-  return withLogs(axios.get(itemUrl, authConfig(token)), 'getItems');
+  return withLogs(axios.get(`${itemUrl}?page=${page}`, authConfig(token)), 'getItems');
 }
 
 export const createItem: (token: string, item: Song) => Promise<Song[]> = (token, item) => {

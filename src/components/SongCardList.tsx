@@ -15,6 +15,8 @@ import {
   IonLabel,
   IonIcon,
   IonCheckbox,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
 } from "@ionic/react";
 import Item from "./SongCard";
 import { ItemContext } from "./SongProvider";
@@ -23,20 +25,38 @@ import Spinner from "./UI/Spinner/Spinner";
 import { getLogger } from "../core";
 import { AuthContext } from "../auth/AuthProvider";
 import { Song } from "./Song";
+import {getItems} from './SongAPI';
 
 import "./SongCardList.css";
 
 const log = getLogger("ItemList");
 
 const ItemList: React.FC<RouteComponentProps> = ({ history }) => {
+  const { token } = useContext(AuthContext);
   const { items, fetching, fetchingError } = useContext(ItemContext);
   const [filteredItems, setFilteredItems] = useState<Song[]>([]);
   const [filterByDownloaded, setFilterByDownloaded] = useState<boolean>(false);
   const { logout } = useContext(AuthContext);
   const [searchText, setSearchText] = useState<string>("");
+  const [disableInfiniteScroll, setDisableInfiniteScroll] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(2);
+
+
   log("render");
 
   useEffect(() => setFilteredItems([...(items ? items : [])]), [items]);
+
+  async function fetchData(reset?: boolean) {
+    const res = await getItems(token, page);
+    setFilteredItems([...filteredItems, ...res]);
+    setDisableInfiniteScroll(res.length < 3);
+    setPage(page + 1);
+  };
+
+  async function searchNext($event: CustomEvent<void>) {
+    await fetchData();
+    ($event.target as HTMLIonInfiniteScrollElement).complete();
+  }
 
   const content = filteredItems && (
     <IonList>
@@ -110,6 +130,15 @@ const ItemList: React.FC<RouteComponentProps> = ({ history }) => {
             <IonIcon icon={add} />
           </IonFabButton>
         </IonFab>
+
+        <IonInfiniteScroll threshold="40px"
+           disabled={disableInfiniteScroll}
+          onIonInfinite={(e: CustomEvent<void>) => searchNext(e)}>
+          <IonInfiniteScrollContent
+            loadingText="Loading more products...">
+          </IonInfiniteScrollContent>
+        </IonInfiniteScroll>
+
       </IonContent>
     </IonPage>
   );
