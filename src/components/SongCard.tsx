@@ -6,7 +6,11 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonLabel,
+  IonIcon,
 } from "@ionic/react";
+
+import "./SongCard.css";
 
 interface SongExt extends Song {
   onEdit: (id?: string) => void;
@@ -21,19 +25,17 @@ const Item: React.FC<SongExt> = ({
 }) => {
   return (
     <IonCard
+      className="song-card"
       onClick={() => onEdit(_id)}
       color="white"
-      style={{
-        "marginBottom": "1.2rem",
-        "border": "2px solid #ff4961",
-      }}
     >
       <IonCardHeader>
         <IonCardTitle>{`${name}`}</IonCardTitle>
         <IonCardSubtitle>{`By ${artist}`}</IonCardSubtitle>
       </IonCardHeader>
-      <IonCardContent>
-        {`You have ${downloaded ? "" : "not"} downloaded this song`}
+      <IonCardContent className="downloaded-card-section">
+        <div>Downloaded?</div>
+        {downloaded? <IonIcon name="checkmark" size="large" className="icon-white"></IonIcon> : <IonIcon name="close" size="large" className="icon-white"></IonIcon>}
       </IonCardContent>
     </IonCard>
   );

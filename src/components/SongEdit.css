@@ -1,0 +1,22 @@
+.edit-song-page ion-content{
+    text-align: center;
+}
+
+.edit-song-page ion-label{
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.edit-song-page ion-input{
+    margin: 1rem auto;
+    width: 40%;
+    border-radius: 20px;
+    border: 1px solid #428cff;
+}
+
+.edit-song-page ion-datetime{
+    margin: 1rem auto;
+    width: 40%;
+    border-radius: 20px;
+    border: 1px solid #428cff;
+}

@@ -27,7 +27,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
     return <Redirect to={{ pathname: '/' }} />
   }
   return (
-    <IonPage class="login-page">
+    <IonPage className="login-page">
       <IonHeader>
         <IonToolbar>
           <IonTitle>Login</IonTitle>
@@ -35,7 +35,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
       </IonHeader>
       <IonContent>
         <IonInput
-          class="login-username"
+          className="login-username"
           placeholder="Username"
           value={username}
           onIonChange={e => setState({
@@ -43,7 +43,7 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
             username: e.detail.value || ''
           })}/>
         <IonInput
-          class="login-password"
+          className="login-password"
           type="password"
           placeholder="Password"
           value={password}

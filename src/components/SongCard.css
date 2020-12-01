@@ -1,0 +1,12 @@
+.song-card{
+    margin-bottom: "1.2rem";
+    border: "2px solid #ff4961";
+}
+
+.downloaded-card-section{
+    text-align: right;
+}
+
+.icon-white{
+    color: "white";
+}

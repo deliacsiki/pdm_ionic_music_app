@@ -19,6 +19,8 @@ import {
     IonItem
 } from '@ionic/react';
 
+import "./SongEdit.css";
+
 interface ItemEditProps extends RouteComponentProps< {
     id?: string
 }>{}
@@ -50,7 +52,7 @@ const ItemEdit: React.FC<ItemEditProps> = ({history, match}) => {
     }
 
     return (
-        <IonPage>
+        <IonPage className="edit-song-page">
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>Make modifications on one song</IonTitle>
@@ -63,12 +65,12 @@ const ItemEdit: React.FC<ItemEditProps> = ({history, match}) => {
             </IonHeader>
             <IonContent>
                 <IonLabel>Song name</IonLabel>
-                <IonInput value={name} onIonChange={e => setName(e.detail.value || '')}/>
+                <IonInput placeholder="Insert song name" value={name} onIonChange={e => setName(e.detail.value || '')}/>
                 <IonLabel>Song artist</IonLabel>
-                <IonInput value={artist} onIonChange={e => setArtist(e.detail.value || '')}/>
+                <IonInput placeholder="Insert song's artist" value={artist} onIonChange={e => setArtist(e.detail.value || '')}/>
                 <IonLabel>Release Date</IonLabel>
                 <IonDatetime displayFormat="DD - MM - YYYY" placeholder="Select Release Date" value={releaseDate.toString()} onIonChange={e => setRealeaseDate(new Date(Date.parse(e.detail.value!)))}></IonDatetime>
-                <IonLabel>Downloaded</IonLabel>
+                <IonLabel>Is the song downloaded?</IonLabel>
                 <IonRadioGroup value={downloaded} onIonChange={e => setDownloaded(e.detail.value)}>
                     <IonItem>
                         <IonLabel>
