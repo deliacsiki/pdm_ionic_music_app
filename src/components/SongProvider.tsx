@@ -136,7 +136,7 @@ export const ItemProvider: React.FC<ItemProviderProps> = ({ children }) => {
         const { type, payload: item } = message;
         log(`ws message, item ${type}`);
         if (type === 'created' || type === 'updated') {
-          //dispatch({ type: SAVE_ITEM_SUCCEEDED, payload: { item } });
+            dispatch({ type: SAVE_ITEM_SUCCEEDED, payload: { item } });
         }
       });
     }
